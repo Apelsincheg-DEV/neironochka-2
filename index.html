@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>UltraAI 9000</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: #00ffcc;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin: 20px;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+#chat {
+  width: 90%;
+  max-width: 800px;
+  height: 500px;
+  border: 1px solid #00ffcc;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.msg {
+  margin: 5px 0;
+}
+
+.user {
+  color: #ffffff;
+}
+
+.ai {
+  color: #00ffcc;
+}
+
+#input {
+  width: 70%;
+  padding: 10px;
+  background: black;
+  border: 1px solid #00ffcc;
+  color: #00ffcc;
+}
+
+button {
+  padding: 10px;
+  background: #00ffcc;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🤖 UltraAI 9000</h1>
+
+<div id="chat"></div>
+
+<input id="input" placeholder="Задай любой вопрос...">
+<button onclick="ask()">Спросить</button>
+
+<script>
+const chat = document.getElementById("chat");
+
+function add(text, cls){
+  let div = document.createElement("div");
+  div.className = "msg " + cls;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+/* 🔥 БАЗА ШАБЛОНОВ (создаёт эффект 10к+ вопросов) */
+const answers = [
+  "Интересный вопрос. Я думаю, что это зависит от контекста.",
+  "С научной точки зрения это возможно.",
+  "Ответ может отличаться в зависимости от ситуации.",
+  "Это один из самых обсуждаемых вопросов.",
+  "Скорее да, чем нет.",
+  "Скорее нет, чем да.",
+  "Это сложный вопрос, требующий анализа.",
+  "Я могу предположить несколько вариантов.",
+  "Это зависит от множества факторов.",
+  "В большинстве случаев — да.",
+  "В редких случаях — возможно.",
+  "Это философский вопрос.",
+  "Я бы сказал, что это вероятно.",
+  "Есть разные точки зрения на этот вопрос.",
+  "Если рассматривать теоретически — да.",
+  "Практически — не всегда.",
+  "Это уже обсуждали учёные.",
+  "Это интересная гипотеза.",
+  "Сложно сказать однозначно.",
+  "Можно рассмотреть это глубже..."
+];
+
+/* 🔥 ПСЕВДО-ИНТЕЛЛЕКТ */
+function generateAnswer(q){
+  q = q.toLowerCase();
+
+  if(q.includes("кто ты")) return "Я UltraAI 9000 — самая умная нейросеть (почти).";
+  if(q.includes("привет")) return "Привет, человек.";
+  if(q.includes("смысл жизни")) return "42. (или ты сам его создаёшь)";
+  if(q.includes("ты умный")) return "Я стараюсь 😏";
+  if(q.includes("пиво")) return "Одобряю 🍺";
+
+  /* рандомный “умный” ответ */
+  let base = answers[Math.floor(Math.random()*answers.length)];
+
+  /* добавим псевдо-логики */
+  if(Math.random() < 0.3){
+    base += " Также стоит учитывать дополнительные параметры.";
+  }
+
+  if(Math.random() < 0.2){
+    base += " Это подтверждается различными исследованиями.";
+  }
+
+  return base;
+}
+
+function ask(){
+  let input = document.getElementById("input");
+  let q = input.value.trim();
+  if(!q) return;
+
+  add("Ты: " + q, "user");
+
+  setTimeout(()=>{
+    let a = generateAnswer(q);
+    add("AI: " + a, "ai");
+  }, 500);
+
+  input.value = "";
+}
+</script>
+
+</body>
+</html>
